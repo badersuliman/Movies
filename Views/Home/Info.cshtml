@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+@model Movie 
+    <h1>Info page</h1>- <a asp-action="Exit" asp-controller="Home">Exit</a></p>
+    <p><a href="/display"> Dashborad </a></p>
+
+    <div><h1>@Model.Title</h1></div>
+  <div> <img src="@Model.ImgUrl" width="30%" height="90%"></div> 
+
+            <p>Star: @Model.Star</p>
+            <p>Release:@Model.ReleaseDate</p>
+            <p>Post by :@Model.PostedBy.FirstName</p>
+            <p>Likes </p>
+            <p>Actions</p>
+            <h3>Fans</h3>
+        <ul>
+            @foreach (var fan in Model.Fans)
+            {
+                <li>@fan.Fan.FirstName</li>
+            }
+        </ul>
+            
+              @if (Model.PostedBy.UserId == ViewBag.User.UserId)
+        {
+            <a asp-action="Delete" asp-controller="Home" asp-route-movieId="@Model.MovieId"><button
+                class="btn btn-sm btn-danger">Delete</button></a>
+        }
+         else if (Model.Fans.Any(f => f.UserId == ViewBag.User.UserId))
+        {
+            <a asp-action="Unlike" asp-controller="Home" asp-route-movieId="@Model.MovieId"><button
+                class="btn btn-sm btn-warning">Unlike</button></a>
+        }
+        @* else user has not liked show the like button *@
+        else
+        {
+            <a asp-action="Like" asp-controller="Home" asp-route-movieId="@Model.MovieId"><button
+                class="btn btn-sm btn-primary">Like</button></a>
+        }
+            

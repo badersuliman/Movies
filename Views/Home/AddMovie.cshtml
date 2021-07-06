@@ -1,0 +1,32 @@
+
+@model Movie
+
+
+
+   @* <p>Hi @Model.PostedBy.FirstName  @Model.PostedBy.LastName</p> *@<p><a href="Exit"> Logout </a></p><p><a href="/display"> Dashborad </a></p> 
+    <h1>Post a Movie</h1>
+    <form asp-action="NewMovie" asp-controller="Home" method="POST">
+        <div>
+            <label asp-for="Title"></label>
+            <input asp-for="Title" />
+            <span asp-validation-for="Title"></span>
+        </div>
+        <div>
+            <label asp-for="Star"></label>
+            <input asp-for="Star" />
+            <span asp-validation-for="Star"></span>
+        </div>
+         <div>
+        <label asp-for="ImgUrl"></label>
+        <input asp-for="ImgUrl" /><br />
+        <span class="text-danger" asp-validation-for="ImgUrl"></span>
+    </div>
+        <div>
+            <label asp-for="ReleaseDate"></label>
+            <input asp-for="ReleaseDate" />
+            <span asp-validation-for="ReleaseDate"></span>
+        </div>
+
+
+        <button type="submit">Submit</button>
+    </form>

@@ -1,0 +1,51 @@
+@ViewBag.User
+<!DOCTYPE html>
+<html lang="en">
+
+@model List<Movie>
+
+   <div><p>Hi @ViewBag.User.FirstName </p>||  <a asp-action="Exit" asp-controller="Home">Exit</a></p>
+    <h1>welcooooome </h1>
+<table class="table table-striped">
+            <thead>
+                <th> Title </th>
+                <th> Star</th>
+                <th> Release</th>
+                <th> Posted by</th>
+                <th> Likes </th>
+                <th> Actions </th>
+
+            </thead>
+@foreach (var movie in Model)
+        {
+            <tr>
+                <td><a asp-action="Info"  asp-controller="Home" asp-route-movieId="@movie.MovieId"> @movie.Title</a></td>
+                  <td>@movie.Star</td>
+                <td>@movie.ReleaseDate.ToString("d")</td>
+                <td>@movie.PostedBy.FirstName</td>
+                <td>@movie.Fans.Count</td>
+                <td> 
+                    @if(movie.PostedBy.UserId==ViewBag.User.UserId){
+                       <a a asp-action="Delete"  asp-controller="Home" asp-route-movieId="@movie.MovieId"> <button type="button" class="btn btn-outline-danger"> delete</button></a>
+
+                    }else if (@movie.Fans.Any(f => f.UserId == ViewBag.User.UserId))
+        {
+            <a asp-action="Unlike" asp-controller="Home" asp-route-movieId="@movie.MovieId"><button
+                class="btn btn-sm btn-warning">Unlike</button></a>
+        }
+        @* else user has not liked show the like button *@
+        else
+        {
+            <a asp-action="Like" asp-controller="Home" asp-route-movieId="@movie.MovieId"><button
+                class="btn btn-sm btn-primary">Like</button></a>
+        }
+                   
+                 
+                        
+                 
+                    </td>
+            </tr>
+        }
+        </table>
+        <a href="/AddMovie"> Add Movie! </a>
+    
